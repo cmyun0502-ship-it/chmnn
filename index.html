@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="구독과 정기 결제 금액을 관리하는 개인 대시보드">
+    <title>구독 관리 대시보드</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main class="page-shell">
+        <header class="page-header">
+            <div>
+                <p class="eyebrow">MY SUBSCRIPTIONS</p>
+                <h1>구독 관리</h1>
+                <p class="page-description">정기 결제와 다음 결제일을 한눈에 관리해 보세요.</p>
+            </div>
+            <a class="header-link" href="#add-subscription">구독 추가하기 <span aria-hidden="true">＋</span></a>
+        </header>
+
+        <p id="app-message" class="app-message" role="status" aria-live="polite" hidden></p>
+
+        <section class="summary-grid" aria-label="구독 지출 요약">
+            <article class="summary-card summary-card-primary">
+                <p class="summary-label">월 합계</p>
+                <p id="monthly-total" class="summary-value">0원</p>
+                <p class="summary-detail">모든 구독의 월 환산 금액</p>
+            </article>
+            <article class="summary-card">
+                <p class="summary-label">연간 합계</p>
+                <p id="yearly-total" class="summary-value">0원</p>
+                <p class="summary-detail">월 합계 기준 예상 지출</p>
+            </article>
+            <article class="summary-card">
+                <p class="summary-label">이번 주 결제 예정</p>
+                <p id="upcoming-count" class="summary-value">0건</p>
+                <p id="upcoming-detail" class="summary-detail">앞으로 7일 이내 결제</p>
+            </article>
+        </section>
+
+        <section class="content-grid">
+            <div class="main-column">
+                <section class="panel subscriptions-panel" aria-labelledby="subscriptions-title">
+                    <div class="section-heading">
+                        <div>
+                            <p class="section-kicker">YOUR SERVICES</p>
+                            <h2 id="subscriptions-title">구독 목록</h2>
+                        </div>
+                        <span id="subscription-count" class="count-badge">0개</span>
+                    </div>
+                    <div id="subscription-list" class="subscription-list">
+                        <div class="empty-state">
+                            <span class="empty-icon" aria-hidden="true">○</span>
+                            <p>아직 등록된 구독이 없습니다.</p>
+                            <span>아래 폼에서 첫 구독을 추가해 주세요.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel category-panel" aria-labelledby="category-title">
+                    <div class="section-heading">
+                        <div>
+                            <p class="section-kicker">MONTHLY BREAKDOWN</p>
+                            <h2 id="category-title">카테고리별 비중</h2>
+                        </div>
+                    </div>
+                    <div id="category-list" class="category-list">
+                        <p class="empty-category">구독을 추가하면 카테고리별 비중이 표시됩니다.</p>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="panel form-panel" id="add-subscription" aria-labelledby="form-title">
+                <div class="section-heading form-heading">
+                    <div>
+                        <p class="section-kicker">SUBSCRIPTION DETAILS</p>
+                        <h2 id="form-title">새 구독 추가</h2>
+                    </div>
+                </div>
+                <form id="subscription-form">
+                    <label class="form-field">
+                        <span>구독 이름</span>
+                        <input id="subscription-name" name="name" type="text" placeholder="예: 음악 스트리밍" maxlength="60" required>
+                    </label>
+
+                    <label class="form-field">
+                        <span>결제 금액</span>
+                        <div class="amount-input">
+                            <input id="subscription-amount" name="amount" type="number" min="1" step="1" placeholder="예: 10900" required>
+                            <span>원</span>
+                        </div>
+                    </label>
+
+                    <fieldset class="form-field cycle-field">
+                        <legend>결제 주기</legend>
+                        <div class="radio-options">
+                            <label class="radio-option">
+                                <input type="radio" name="cycle" value="monthly" checked>
+                                <span>매월</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="cycle" value="yearly">
+                                <span>매년</span>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <label class="form-field">
+                        <span>다음 결제일</span>
+                        <input id="subscription-date" name="nextPaymentDate" type="date" required>
+                    </label>
+
+                    <label class="form-field">
+                        <span>카테고리</span>
+                        <input id="subscription-category" name="category" type="text" placeholder="예: 영상, 음악, 업무" maxlength="30" required>
+                    </label>
+
+                    <div class="form-actions">
+                        <button id="submit-button" class="button button-primary" type="submit">구독 추가</button>
+                        <button id="cancel-edit-button" class="button button-secondary" type="button" hidden>취소</button>
+                    </div>
+                </form>
+            </aside>
+        </section>
+
+        <footer class="page-footer">데이터는 현재 브라우저의 localStorage에 저장됩니다.</footer>
+    </main>
+
+    <!--
+        main.js가 logic.js의 예제 로그에서 사용하는 이름을 먼저 준비합니다.
+        logic.js는 기존 파일을 그대로 불러오며, 실제 화면 초기화는 세 스크립트가
+        모두 로드된 뒤 DOMContentLoaded 시점에 실행됩니다.
+    -->
+    <script src="js/main.js"></script>
+    <script src="js/logic.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+</html>
